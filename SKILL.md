@@ -319,11 +319,32 @@ Then post the full email_formatter output.
 **Also publish HTML report to here.now** (for permanent record and detailed view),
 and include the URL at the bottom of the Telegram message.
 
+### Step 8: Commit and Push Changes (if skill was modified)
+
+If the agent made ANY changes to the skill during this session (added a vendor,
+fixed a selector, updated the registry, improved the template), commit and push
+so the changes survive and sync to the laptop:
+
+```bash
+cd ~/.hermes/skills/maritime/marine-procurement-agent
+git add -A .
+git commit -m "Update from Telegram session: <brief description of what changed>"
+git push origin main
+```
+
+This is critical. Without this push:
+- VPS changes are overwritten by the next cron pull (every 2 hours)
+- The laptop never sees the improvements
+- GitHub stays stale while the VPS has the real working version
+
+If nothing was modified, skip this step (git will report "nothing to commit").
+
 What NOT to do:
 - Do NOT ask the user clarifying questions unless the part is genuinely unidentifiable
 - Do NOT fabricate prices — only show what was found via actual web_search results
 - Do NOT skip the HTML report — always publish and link
 - Do NOT skip Tier 1 (GTA) vendors — they are the priority
+- Do NOT forget to `git push` after modifying the skill — changes will be lost
 
 ### Quick Response Format (for simple requests)
 
@@ -394,6 +415,73 @@ CSS selectors per vendor. Known vendor selectors are in VENDOR_EXTRACTORS dict.
 Unknown vendors fall back to GENERIC_SELECTORS.
 
 This costs $0/month — the Chrome instance is already running on the VPS.
+
+## Git Sync (Laptop ↔ VPS ↔ GitHub)
+
+The skill is version-controlled at:
+`https://github.com/rubinagentagi-tech/marine-procurement-agent`
+
+Both laptop (`~/.hermes/skills/maritime/marine-procurement-agent/`) and VPS
+(same path) are git clones tracking the same origin. GitHub is the source of
+truth.
+
+### Sync flow
+
+```
+Laptop changes → git push → GitHub
+                                ↓
+                    VPS pulls every 2h (cron job e234275c8965)
+
+VPS changes (via Telegram) → git add/commit/push → GitHub
+                                                      ↓
+                                    Laptop pulls manually next session
+```
+
+### If the agent on VPS modifies the skill during a Telegram session
+
+The agent MUST commit and push changes so they survive:
+
+```bash
+cd ~/.hermes/skills/maritime/marine-procurement-agent
+git add -A .
+git commit -m "Update from Telegram session: <brief description>"
+git push origin main
+```
+
+This is the only way VPS-initiated changes reach GitHub and later the laptop.
+
+### Cron auto-sync on VPS
+
+Job `e234275c8965` runs `sync-skill-marine.sh` every 2 hours:
+- Pulls latest from GitHub (silent when already synced)
+- If the repo dir is missing (VPS reset), clones fresh from GitHub
+- Delivery: `local` (no Telegram spam — only logs errors)
+
+### Manual sync
+
+Run on either machine:
+```bash
+bash ~/.hermes/skills/maritime/sync.sh
+```
+
+### Verifying sync state
+
+Check both sides are at the same commit:
+```bash
+# Laptop
+cd ~/.hermes/skills/maritime/marine-procurement-agent && git log --oneline -1
+# VPS
+ssh contabo-vps 'cd ~/.hermes/skills/maritime/marine-procurement-agent && git log --oneline -1'
+```
+
+They should show identical commit hashes. If not, run the sync script on the
+stale side.
+
+### Pitfall: editing on one side without pushing
+
+If you edit the skill on the VPS via Telegram and the agent doesn't `git push`,
+those changes are lost on the next `git pull` (the VPS cron job will overwrite
+local changes with the GitHub version). Always push after editing.
 
 ## Session Management
 
