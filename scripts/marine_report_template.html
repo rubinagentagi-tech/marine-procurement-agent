@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marine Procurement Report</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0D1117; color: #E6EDF3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 640px; margin: 0 auto; padding: 24px 12px; font-size: 15px; line-height: 1.5; }
+  
+  /* HEADER */
+  .header { text-align: center; padding: 20px 0 16px; border-bottom: 2px solid #21262D; margin-bottom: 20px; }
+  .header h1 { font-size: 22px; color: #F0F6FC; font-weight: 700; margin-bottom: 4px; }
+  .header .byline { font-size: 13px; color: #8B949E; font-weight: 600; }
+  .header .meta { font-size: 12px; color: #484F58; margin-top: 6px; }
+
+  /* PART ID CARD */
+  .card { background: #161B22; border: 1px solid #21262D; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .card-title { font-size: 16px; font-weight: 700; color: #F0F6FC; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .card-title .icon { font-size: 20px; }
+  .part-info { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; }
+  .part-info .label { color: #8B949E; }
+  .part-info .value { color: #E6EDF3; font-weight: 600; }
+  .part-info .highlight { color: #8B5CFC; font-weight: 700; font-size: 15px; }
+
+  /* QUICK SUMMARY CARDS */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .summary-card { background: #161B22; border: 1px solid #21262D; border-radius: 8px; padding: 12px; text-align: center; }
+  .summary-card .sc-label { font-size: 10px; color: #8B949E; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .summary-card .sc-value { font-size: 20px; font-weight: 700; }
+  .summary-card .sc-sub { font-size: 11px; color: #8B949E; margin-top: 2px; }
+  .sc-best { color: #22C55E; }
+  .sc-fast { color: #3B82F6; }
+  .sc-near { color: #8B5CFC; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  thead th { background: #161B22; color: #8B949E; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 8px; text-align: left; border-bottom: 1px solid #30363D; position: sticky; top: 0; }
+  tbody td { padding: 10px 8px; border-bottom: 1px solid #21262D; vertical-align: top; }
+  tbody tr:hover { background: #1C2129; }
+  
+  .tier-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tier-1 { background: #064E19; color: #22C55E; }
+  .tier-2 { background: #4A3800; color: #EAB308; }
+  .tier-3 { background: #4A0B0B; color: #EF4444; }
+  
+  .vendor-name { font-weight: 700; color: #E6EDF3; font-size: 13px; }
+  .vendor-location { font-size: 11px; color: #8B949E; }
+  
+  .price { font-weight: 700; font-size: 14px; color: #F0F6FC; }
+  .price-currency { font-size: 10px; color: #8B949E; }
+  
+  .stock { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
+  .stock-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .stock-in { color: #22C55E; }
+  .stock-in .stock-dot { background: #22C55E; }
+  .stock-limited { color: #EAB308; }
+  .stock-limited .stock-dot { background: #EAB308; }
+  .stock-out { color: #EF4444; }
+  .stock-out .stock-dot { background: #EF4444; }
+  
+  .lead-time { font-size: 12px; }
+  .lead-fast { color: #22C55E; font-weight: 600; }
+  .lead-medium { color: #EAB308; }
+  .lead-slow { color: #EF4444; }
+  
+  .source-link { color: #8B5CFC; font-size: 11px; text-decoration: none; }
+  .source-link:hover { text-decoration: underline; }
+
+  /* NEAR-SOURCING SCORE GAUGE */
+  .gauge-row { display: flex; align-items: center; gap: 8px; }
+  .gauge-bar { flex: 1; height: 6px; background: #21262D; border-radius: 3px; overflow: hidden; }
+  .gauge-fill { height: 100%; border-radius: 3px; }
+  .gauge-g { background: #22C55E; }
+  .gauge-y { background: #EAB308; }
+  .gauge-r { background: #EF4444; }
+  .gauge-num { font-size: 13px; font-weight: 700; width: 20px; text-align: center; }
+  .gauge-g-num { color: #22C55E; }
+  .gauge-y-num { color: #EAB308; }
+  .gauge-r-num { color: #EF4444; }
+
+  /* COST BREAKDOWN */
+  .cost-breakdown { font-size: 13px; }
+  .cost-row { display: flex; justify-content: space-between; padding: 4px 0; }
+  .cost-row.total { border-top: 1px solid #30363D; margin-top: 4px; padding-top: 8px; font-weight: 700; font-size: 15px; }
+  
+  /* FOOTER */
+  .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #21262D; text-align: center; }
+  .footer p { font-size: 11px; color: #484F58; }
+  .footer a { color: #8B949E; }
+  .disclaimer { font-size: 10px; color: #30363D; margin-top: 8px; line-height: 1.4; }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .summary-grid { grid-template-columns: 1fr; }
+    table { font-size: 11px; }
+    thead th, tbody td { padding: 8px 4px; }
+    .part-info { grid-template-columns: 1fr; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🛥️ Marine Procurement Report</h1>
+  <div class="byline">Created by Rubin Varghese</div>
+  <div class="meta">{{REPORT_TIMESTAMP}} · Generated by Marine Procurement Agent</div>
+</div>
+
+<!-- PART IDENTIFICATION -->
+<div class="card">
+  <div class="card-title"><span class="icon">🔍</span> Part Identification</div>
+  <div class="part-info">
+    <span class="label">Part Number:</span><span class="value highlight">{{PART_NUMBER}}</span>
+    <span class="label">Description:</span><span class="value">{{PART_DESCRIPTION}}</span>
+    <span class="label">Brand:</span><span class="value">{{PART_BRAND}}</span>
+    <span class="label">Category:</span><span class="value">{{PART_CATEGORY}}</span>
+    {{#PART_OEM_EQUIVALENT}}<span class="label">OEM Equivalent:</span><span class="value">{{PART_OEM_EQUIVALENT}}</span>{{/PART_OEM_EQUIVALENT}}
+    {{#PART_IMAGE_SRC}}<span class="label">Reference Image:</span><span class="value"><a href="{{PART_IMAGE_SRC}}" style="color:#8B5CFC;">view</a></span>{{/PART_IMAGE_SRC}}
+  </div>
+</div>
+
+<!-- QUICK SUMMARY -->
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="sc-label">Best Price</div>
+    <div class="sc-value sc-best">{{BEST_PRICE}}</div>
+    <div class="sc-sub">at {{BEST_PRICE_VENDOR}}</div>
+  </div>
+  <div class="summary-card">
+    <div class="sc-label">Fastest Lead Time</div>
+    <div class="sc-value sc-fast">{{FASTEST_LEAD}}</div>
+    <div class="sc-sub">at {{FASTEST_LEAD_VENDOR}}</div>
+  </div>
+  <div class="summary-card">
+    <div class="sc-label">Best Near-Source</div>
+    <div class="sc-value sc-near">{{BEST_NEAR_SOURCE_SCORE}}/10</div>
+    <div class="sc-sub">{{BEST_NEAR_SOURCE_VENDOR}} ({{BEST_NEAR_SOURCE_CITY}})</div>
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="card">
+  <div class="card-title"><span class="icon">📊</span> Vendor Comparison</div>
+  <div style="overflow-x: auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Vendor</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Lead</th>
+          <th>Near-Source</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{VENDOR_ROWS}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- NEAR-SOURCING SCORES -->
+<div class="card">
+  <div class="card-title"><span class="icon">📍</span> Near-Sourcing Scores</div>
+  <p style="font-size:12px;color:#8B949E;margin-bottom:12px;">Score 1-10 based on proximity to Hamilton/Toronto, CAD pricing, lead time, and in-stock availability.</p>
+  {{NEAR_SOURCING_GAUGES}}
+</div>
+
+<!-- COST BREAKDOWN -->
+<div class="card">
+  <div class="card-title"><span class="icon">💰</span> Estimated Total Cost</div>
+  <p style="font-size:12px;color:#8B949E;margin-bottom:8px;">Best option (Tier 1 preferred): <strong style="color:#E6EDF3;">{{COST_VENDOR}}</strong></p>
+  <div class="cost-breakdown">
+    <div class="cost-row"><span>Part price</span><span>{{COST_ITEM_PRICE}}</span></div>
+    <div class="cost-row"><span>Estimated shipping</span><span>{{COST_SHIPPING}}</span></div>
+    {{#COST_DUTY}}<div class="cost-row"><span>Estimated duty ({{COST_DUTY_RATE}})</span><span>{{COST_DUTY}}</span></div>{{/COST_DUTY}}
+    {{#COST_HST}}<div class="cost-row"><span>HST (13%)</span><span>{{COST_HST}}</span></div>{{/COST_HST}}
+    <div class="cost-row total"><span>Estimated Total</span><span style="color:#8B5CFC;">{{COST_TOTAL}}</span></div>
+  </div>
+  <p style="font-size:10px;color:#30363D;margin-top:8px;">All prices estimated. Contact vendor to confirm. Currency: {{CURRENCY}}. Exchange rate (if applicable): {{FX_RATE}}.</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong style="color:#8B949E;">Marine Procurement Agent</strong> · Artisa AI Consulting · <a href="https://artisaai.ca">artisaai.ca</a></p>
+  <p>Report URL: <a href="{{REPORT_URL}}">{{REPORT_URL}}</a></p>
+  <div class="disclaimer">
+    ⚠️ Prices and availability are sourced from publicly accessible web pages and may not reflect real-time inventory. 
+    Always confirm with the vendor before ordering. Cross-border purchases may be subject to additional duties and 
+    brokerage fees beyond estimates shown. Part compatibility should be verified against equipment serial numbers 
+    and model years. This report is for informational purposes only.
+  </div>
+</div>
+
+</body>
+</html>

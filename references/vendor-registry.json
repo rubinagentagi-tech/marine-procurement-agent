@@ -1,0 +1,330 @@
+{
+  "tiers": {
+    "1": {
+      "label": "GTA / Southern Ontario",
+      "color": "#22C55E",
+      "score_range": [8, 10],
+      "description": "Distributors in the Greater Toronto Area and Southern Ontario — fastest shipping, CAD pricing, no duties"
+    },
+    "2": {
+      "label": "Canada",
+      "color": "#EAB308",
+      "score_range": [4, 7],
+      "description": "Canadian distributors outside Ontario — CAD pricing, domestic shipping, no duties"
+    },
+    "3": {
+      "label": "US / International",
+      "color": "#EF4444",
+      "score_range": [1, 3],
+      "description": "US and international vendors — USD pricing, cross-border shipping, potential duties"
+    }
+  },
+  "vendors": [
+    {
+      "name": "Holland Marine Products",
+      "tier": 1,
+      "city": "Toronto",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.hollandmarine.com",
+      "search_url": "https://www.hollandmarine.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Largest Ontario inventory, chandlery",
+      "categories": ["chandlery", "hardware", "deck", "electrical", "plumbing"],
+      "near_source_score": 10
+    },
+    {
+      "name": "Brewers' Marine Supply",
+      "tier": 1,
+      "city": "Hamilton",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.brewersmarine.com",
+      "search_url": "https://www.brewersmarine.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Hamilton port, commercial + recreational",
+      "categories": ["commercial", "chandlery", "safety", "ropes"],
+      "near_source_score": 10
+    },
+    {
+      "name": "C.C. Marine Distributors",
+      "tier": 1,
+      "city": "Canada-wide",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://ccmarine.ca",
+      "search_url": "https://ccmarine.ca/search?q={query}",
+      "search_type": "url",
+      "notes": "Wholesale distributor, marine + industrial",
+      "categories": ["wholesale", "engine", "deck", "safety"],
+      "near_source_score": 9
+    },
+    {
+      "name": "Eastmar Marine",
+      "tier": 1,
+      "city": "Toronto",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.eastmar.ca",
+      "search_url": "https://www.eastmar.ca/search?q={query}",
+      "search_type": "url",
+      "notes": "Toronto's marine parts centre",
+      "categories": ["parts", "accessories", "engine", "electrical"],
+      "near_source_score": 10
+    },
+    {
+      "name": "Marine Outfitters",
+      "tier": 1,
+      "city": "Ontario",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.marineoutfitters.ca",
+      "search_url": "https://www.marineoutfitters.ca/index.cfm?search={query}",
+      "search_type": "url",
+      "notes": "Est. 1999, broad inventory, engine parts",
+      "categories": ["engine", "electronics", "hardware", "plumbing"],
+      "near_source_score": 9
+    },
+    {
+      "name": "Fogh Boat Supplies",
+      "tier": 1,
+      "city": "Ontario",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.foghboatsupplies.com",
+      "search_url": "https://www.foghboatsupplies.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Ontario marine store",
+      "categories": ["chandlery", "parts", "accessories"],
+      "near_source_score": 9
+    },
+    {
+      "name": "OBR Oil & Marine",
+      "tier": 1,
+      "city": "Canada",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.obroilandmarine.com",
+      "search_url": "https://www.obroilandmarine.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Engine parts, impellers, lubes specialist",
+      "categories": ["engine", "impellers", "filters", "lubes", "pumps"],
+      "near_source_score": 8
+    },
+    {
+      "name": "Steveston Marine",
+      "tier": 2,
+      "city": "Vancouver",
+      "province": "BC",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.stevestonmarine.com",
+      "search_url": "https://www.stevestonmarine.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Since 1941, 10,000+ items, free ship over $120",
+      "categories": ["chandlery", "outboard", "safety", "electronics"],
+      "near_source_score": 7
+    },
+    {
+      "name": "Western Marine / Transat Marine",
+      "tier": 2,
+      "city": "Vancouver",
+      "province": "BC",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://westernmarine.com",
+      "search_url": "https://westernmarine.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Wholesale distributor, CAD pricing",
+      "categories": ["wholesale", "chandlery", "engine", "safety"],
+      "near_source_score": 6
+    },
+    {
+      "name": "Marine Parts Supply",
+      "tier": 2,
+      "city": "Canada",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://marinepartssupply.com",
+      "search_url": "https://marinepartssupply.com/?s={query}",
+      "search_type": "url",
+      "notes": "Evinrude distributor, sterndrive parts",
+      "categories": ["outboard", "sterndrive", "engine"],
+      "near_source_score": 7
+    },
+    {
+      "name": "The Chandlery",
+      "tier": 2,
+      "city": "Ottawa",
+      "province": "ON",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.thechandleryonline.com",
+      "search_url": "https://www.thechandleryonline.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Since 1982, power + sail",
+      "categories": ["chandlery", "sail", "power", "safety"],
+      "near_source_score": 7
+    },
+    {
+      "name": "Trotac Marine",
+      "tier": 2,
+      "city": "Victoria",
+      "province": "BC",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://trotac.ca",
+      "search_url": "https://trotac.ca/search?q={query}",
+      "search_type": "url",
+      "notes": "Pumps, impellers, hose specialist",
+      "categories": ["pumps", "impellers", "hose", "plumbing"],
+      "near_source_score": 5
+    },
+    {
+      "name": "Kimpex Canada",
+      "tier": 2,
+      "city": "Drummondville",
+      "province": "QC",
+      "country": "Canada",
+      "currency": "CAD",
+      "website": "https://www.kimpex.com",
+      "search_url": "https://www.kimpex.com/en-ca/search?q={query}",
+      "search_type": "url",
+      "notes": "Marine impellers, engine parts, powersports",
+      "categories": ["impellers", "engine", "powersports"],
+      "near_source_score": 5
+    },
+    {
+      "name": "Defender Marine",
+      "tier": 3,
+      "city": "Waterford",
+      "province": "CT",
+      "country": "USA",
+      "currency": "USD",
+      "website": "https://defender.com",
+      "search_url": "https://defender.com/en_us/search?q={query}",
+      "search_type": "url",
+      "notes": "Largest US online marine retailer, ships to Canada",
+      "categories": ["chandlery", "electronics", "safety", "engine", "all"],
+      "near_source_score": 3
+    },
+    {
+      "name": "Hamilton Marine",
+      "tier": 3,
+      "city": "Searsport",
+      "province": "ME",
+      "country": "USA",
+      "currency": "USD",
+      "website": "https://hamiltonmarine.com",
+      "search_url": "https://shop.hamiltonmarine.com/inet/storefront/store.php?mode=searchstore&search[searchfor]={query}",
+      "search_type": "url",
+      "notes": "Traditional marine hardware, commercial fishing",
+      "categories": ["hardware", "commercial", "chandlery", "safety"],
+      "near_source_score": 2
+    },
+    {
+      "name": "Fisheries Supply",
+      "tier": 3,
+      "city": "Seattle",
+      "province": "WA",
+      "country": "USA",
+      "currency": "USD",
+      "website": "https://www.fisheriessupply.com",
+      "search_url": "https://www.fisheriessupply.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Major West Coast supplier, broad inventory",
+      "categories": ["chandlery", "electronics", "engine", "safety", "all"],
+      "near_source_score": 2
+    },
+    {
+      "name": "Marine Engine Depot",
+      "tier": 3,
+      "city": "Online",
+      "province": "N/A",
+      "country": "USA",
+      "currency": "USD",
+      "website": "https://marineenginedepot.com",
+      "search_url": "https://marineenginedepot.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Engine parts specialist",
+      "categories": ["engine", "distributors", "caps", "rotors", "impellers"],
+      "near_source_score": 2
+    },
+    {
+      "name": "MDI Marine Diesel Inc.",
+      "tier": 3,
+      "city": "Online",
+      "province": "N/A",
+      "country": "USA",
+      "currency": "USD",
+      "website": "https://shop.marinedieselinc.com",
+      "search_url": "https://shop.marinedieselinc.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Diesel engine parts specialist",
+      "categories": ["diesel", "engine", "filters", "gaskets", "pumps"],
+      "near_source_score": 2
+    },
+    {
+      "name": "ShipServ",
+      "tier": 3,
+      "city": "Global",
+      "province": "N/A",
+      "country": "Global",
+      "currency": "USD",
+      "website": "https://www.shipserv.com",
+      "search_url": "https://www.shipserv.com/search?q={query}",
+      "search_type": "url",
+      "notes": "Maritime e-procurement marketplace, commercial focus",
+      "categories": ["commercial", "all"],
+      "near_source_score": 1
+    }
+  ],
+  "aftermarket_cross_reference_sources": [
+    {
+      "name": "Sierra Marine",
+      "url": "https://www.sierramarine.com",
+      "notes": "Aftermarket marine parts — cross-reference OEM to Sierra"
+    },
+    {
+      "name": "GLM Marine",
+      "url": "https://www.glmmarine.com",
+      "notes": "Aftermarket stern drive and engine parts"
+    },
+    {
+      "name": "Mallory Marine",
+      "url": "https://www.mallorymarine.com",
+      "notes": "Ignition, fuel, electrical aftermarket"
+    }
+  ],
+  "common_marine_brands": [
+    "Jabsco", "Racor", "Sierra", "Mercruiser", "Volvo Penta", "Yanmar",
+    "Cummins", "Detroit Diesel", "Caterpillar", "Westerbeke", "Onan",
+    "Rule", "Johnson Pump", "Oberdorfer", "Sherwood", "Perko", "Seachoice",
+    "Ancor", "Blue Sea Systems", "Xantrex", "Mastervolt", "Garmin",
+    "Raymarine", "Furuno", "Simrad", "Lowrance", "Standard Horizon",
+    "Jabsco", "Groco", "Whale", "Shurflo", "Flojet", "Vetus", "Lewmar"
+  ],
+  "hs_codes_marine": [
+    {"code": "8409.99", "description": "Parts for marine engines"},
+    {"code": "8413.91", "description": "Pump parts"},
+    {"code": "8421.23", "description": "Oil/fuel filters for internal combustion engines"},
+    {"code": "8483.90", "description": "Transmission parts"},
+    {"code": "4016.93", "description": "Gaskets, washers, seals"},
+    {"code": "8907.90", "description": "Other floating structures (buoys, fenders)"},
+    {"code": "6307.20", "description": "Life jackets and life belts"}
+  ],
+  "duty_estimate": {
+    "most_favored_nation": "5-7%",
+    "general": "13%",
+    "usmca_exempt": "0% (if made in US/Mexico/Canada)",
+    "notes": "Most marine parts from US are duty-free under USMCA. Verify country of origin."
+  }
+}
